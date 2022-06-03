@@ -1,10 +1,10 @@
 #include <Arduino_MKRGPS.h>
 #include "Firebase_Arduino_WiFiNINA.h"
 
-#define WIFI_SSID "ASUS-RT-AC65P"
-#define WIFI_PASSWORD "AC65P_1234!"
-#define FIREBASE_HOST"gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app"
-#define FIREBASE_AUTH"nanwSK7eulGPHpLm34uru0mhTaUZyWcl5iZU3xDc"
+#define WIFI_SSID ""
+#define WIFI_PASSWORD ""
+#define FIREBASE_HOST""
+#define FIREBASE_AUTH""
 
 FirebaseData firebaseData;
 // path based on date
