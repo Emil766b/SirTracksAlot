@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gps-data-cc537": {
+      "hosting": {
+        "gps-tracker": [
+          "gps-data-cc537"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gps-data-cc537"
+  }
+}

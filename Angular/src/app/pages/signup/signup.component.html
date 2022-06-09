@@ -1,0 +1,40 @@
+<div class="form-container mat-elevation-z5">
+    <h1>Opret bruger</h1>
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+
+        <mat-form-field>
+            <input matInput placeholder="Navn" formControlName="name" />
+            <mat-error *ngIf="name?.errors?.['required']">
+                Indtast et navn
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error *ngIf="email?.errors?.['required']">
+                Indtast en email
+            </mat-error>
+            <mat-error *ngIf="email?.errors?.['email']">
+                Indtast en korrekt email
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Password" formControlName="password" type="password" />
+            <mat-error *ngIf="confirmpassword?.errors?.['required']">
+                indtast korrekt password
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Password" formControlName="confirmPassword" type="confirmpassword" />
+            <mat-error *ngIf="password?.errors?.['required']">
+                indtast samme password
+            </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="signupForm.errors?.['passwordMatch']">Passwords matcher ikke</mat-error>
+        <div class="center margin-top">
+            <button mat-raised-button color="primary" type="submit">Opret</button>
+        </div>
+    </form>
+</div>
