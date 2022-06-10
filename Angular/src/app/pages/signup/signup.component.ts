@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service'
 
 export function passwordMatch(): ValidatorFn {
 return (control: AbstractControl): ValidationErrors | null => {
@@ -30,7 +32,7 @@ export class SignupComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: passwordMatch()})
 
-  constructor() { }
+  constructor(private authService: FirebaseService, private  router: Router) { }
 
   ngOnInit(): void {
   }
@@ -52,7 +54,11 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
-    
+    if (!this.signupForm.valid) return;
+
+    const { name, email, password } = this.signupForm.value;
+    this.authService.signup(name, email, password);
+    this.router.navigate(['/']);
   }
 
 }
