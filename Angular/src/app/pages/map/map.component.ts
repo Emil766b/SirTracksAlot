@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service'
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { GeoJson, FeatureCollection } from 'map';
+//import { GeoJson, FeatureCollection } from 'map';
 import { MapService } from 'src/app/services/map.service';
+import * as Mapboxgl from 'mapbox-gl';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-map',
@@ -38,7 +40,26 @@ export class MapComponent implements OnInit {
     });
   }
 
+  map!: Mapboxgl.Map;
+
   ngOnInit(): void {
+    (Mapboxgl as any).accessToken = environment.mapbox.accessToken;
+      this.map = new Mapboxgl.Map({
+      container: 'map-mapbox', // container ID
+      style: 'mapbox://styles/mapbox/streets-v11', // style URL
+      center: [10.1252442, 56.1135314], // starting position [lng, lat]
+      zoom: 15 // starting zoom
+    });
+
+    this.marker(10.1252442, 56.1135314);
+  }
+
+  marker(lng: number, lat: number) {
+    const marker = new Mapboxgl.Marker({
+      draggable: false
+    })
+    .setLngLat([lng, lat])
+    .addTo(this.map);
   }
 
 }

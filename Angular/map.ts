@@ -1,3 +1,4 @@
+/*
 export interface IGeometry {
     type: string;
     coordinates: number[];
@@ -26,3 +27,4 @@ export class FeatureCollection {
     type = 'FeatureCollection'
     constructor(public featurs: Array<GeoJson>) {}
 }
+*/

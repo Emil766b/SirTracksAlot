@@ -7,6 +7,9 @@
     object-fit: cover;
     opacity: 0.3;
     z-index: -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 
@@ -33,6 +36,7 @@
 
 .form-container mat-form-field {
     width: 100%;
+    
 }
 
 .center {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { updateProfile } from 'firebase/auth';
-import { from, switchMap } from 'rxjs';
+import { from, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +23,5 @@ export class FirebaseService {
   logout() {
     return from (this.auth.signOut());
   }
+
 }
