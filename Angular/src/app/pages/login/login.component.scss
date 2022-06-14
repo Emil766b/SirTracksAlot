@@ -1,3 +1,15 @@
+// Map
+
+.bg {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+
 .submit {
     margin-top: 10px;
     position: relative;
@@ -7,3 +19,31 @@
 .create-link {
     margin-left: 5px;
 }
+
+.form-container {
+    display:  block;
+    max-width: 300px;
+    margin-top: 200;
+    margin: auto;
+    background: lightgray;
+    padding: 48px;
+    border-radius: 16px;
+}
+
+.form-container mat-form-field {
+    width: 100%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.margin-top {
+    margin-top: 16px;
+}
+
+.text-center {
+    text-align: center;
+}
+

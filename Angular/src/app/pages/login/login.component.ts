@@ -9,6 +9,7 @@ import { FirebaseService } from 'src/app/services/firebase.service'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  image: string = "../../../assets/map.png";
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     const {email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(() => {
-      this.router.navigate(['/landing'])
+      this.router.navigate(['/map'])
     })
   }
 

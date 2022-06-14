@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { MainPageComponent } from './main-page/main-page.component';
 import { FirebaseService } from './services/firebase.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule} from '@angular/material/button';
@@ -19,16 +18,18 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { LandingComponent } from './pages/landing/landing.component';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MapComponent } from './pages/map/map.component';
+import { HistoryComponent } from './pages/history/history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageComponent,
     LoginComponent,
     SignupComponent,
-    LandingComponent
+    MapComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +40,8 @@ import { LandingComponent } from './pages/landing/landing.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatSidenavModule,
+    MatDividerModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

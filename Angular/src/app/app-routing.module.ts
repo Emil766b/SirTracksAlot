@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingComponent } from './pages/landing/landing.component';
 import { LoginComponent } from './pages/login/login.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
+import { HistoryComponent } from './pages/history/history.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { MapComponent } from './pages/map/map.component';
 import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
-const redirectToMain = () => redirectLoggedInTo(['landing'])
+const redirectToMain = () => redirectLoggedInTo(['map'])
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'map',
     pathMatch: 'full',
-    component: MainPageComponent,
+    component: MapComponent,
+    ...canActivate(redirectToLogin)
+  },
+  {
+    path: 'history',
+    pathMatch: 'full',
+    component: HistoryComponent,
     ...canActivate(redirectToLogin)
   },
   {
@@ -26,10 +32,6 @@ const routes: Routes = [
     component: SignupComponent,
     ...canActivate(redirectToMain)
   },
-  {
-    path: 'landing',
-    component: LandingComponent
-  }
 ];
 
 @NgModule({
