@@ -13,9 +13,15 @@ export const environment = {
     authDomain: 'gps-data-cc537.firebaseapp.com',
     messagingSenderId: '634088947870',
     measurementId: 'G-Z9P36SJZWP',
+    
+  },
+  mapbox: {
+    accessToken: 'pk.eyJ1IjoiYWxwaW5lcSIsImEiOiJjbDRkeHBocGIwY3RpM2pzNmt0bHdjeml2In0.aTaL5hQDzyWcdozhzH2HhA'
   },
   production: false
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

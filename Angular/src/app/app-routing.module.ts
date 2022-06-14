@@ -11,6 +11,11 @@ const redirectToMain = () => redirectLoggedInTo(['map'])
 
 const routes: Routes = [
   {
+    path: '',
+    component: LoginComponent,
+    ...canActivate(redirectToMain)
+  },
+  {
     path: 'map',
     pathMatch: 'full',
     component: MapComponent,
@@ -21,11 +26,6 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HistoryComponent,
     ...canActivate(redirectToLogin)
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    ...canActivate(redirectToMain)
   },
   {
     path: 'signup',

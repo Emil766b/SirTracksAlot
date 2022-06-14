@@ -3,6 +3,11 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service'
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { GeoJson, FeatureCollection } from 'map';
+import { MapService } from 'src/app/services/map.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -13,7 +18,6 @@ export class MapComponent implements OnInit {
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
   constructor(private observer: BreakpointObserver, public authService: FirebaseService, private router: Router) {
-
   }
 
   logout() {
