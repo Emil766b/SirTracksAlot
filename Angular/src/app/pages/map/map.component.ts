@@ -9,17 +9,23 @@ import { environment } from 'src/environments/environment';
 import { MapService } from 'src/app/services/map.service';
 import * as Mapboxgl from 'mapbox-gl';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { HttpClient} from '@angular/common/http';
+
+import { Database, child, set, ref, update, onValue, get } from '@angular/fire/database';
+
+
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
+
 export class MapComponent implements OnInit {
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver, public authService: FirebaseService, private router: Router) {
+  constructor(private observer: BreakpointObserver, public authService: FirebaseService, private router: Router, private httpClinet: HttpClient, public database: Database) {
   }
 
   logout() {
@@ -52,6 +58,10 @@ export class MapComponent implements OnInit {
     });
 
     this.marker(10.1252442, 56.1135314);
+
+    this.authService.getLocation().subscribe(data => {
+      console.log(data);
+    })
   }
 
   marker(lng: number, lat: number) {
@@ -61,5 +71,6 @@ export class MapComponent implements OnInit {
     .setLngLat([lng, lat])
     .addTo(this.map);
   }
+
 
 }

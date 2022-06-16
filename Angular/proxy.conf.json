@@ -1,0 +1,8 @@
+{
+  "/https/*": {
+    "target": "https://gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app/",
+    "secure": false,
+    "loglevel":"debug"
+
+  }
+}

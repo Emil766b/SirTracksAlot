@@ -22,6 +22,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MapComponent } from './pages/map/map.component';
 import { HistoryComponent } from './pages/history/history.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { HistoryComponent } from './pages/history/history.component';
     LoginComponent,
     SignupComponent,
     MapComponent,
-    HistoryComponent
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,11 +43,13 @@ import { HistoryComponent } from './pages/history/history.component';
     ReactiveFormsModule,
     MatSidenavModule,
     MatDividerModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
