@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { from, Observable, switchMap } from 'rxjs';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { from, map, Observable, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../Models/Post';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
+
+  currentUser$ = authState(this.auth);
 
   constructor(public auth: Auth, private http: HttpClient) { }
 
@@ -15,10 +18,9 @@ export class FirebaseService {
     return from(signInWithEmailAndPassword(this.auth, username, password));
   }
 
-  signup(name: string, email: string, password: string) {
-    return from(createUserWithEmailAndPassword(this.auth, email, password))
-    //.pipe
-    //switchMap(({ user })) => updateProfile(user, { displayName: name });
+  signup(email: string, password: string) {
+    return from(createUserWithEmailAndPassword(this.auth, email, password));
+
   }
 
   logout() {
@@ -29,6 +31,18 @@ export class FirebaseService {
     return this.http.get<{[id: string]: Post}>(
       `https://gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app/LocationData.json`
     );
+  }
+
+  getPastData() {
+    return this.http.get<{[id: string]: Post}>(
+      `https://gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app/LocationData/PastData.json`
+    ).pipe(map((posts) => {
+      let postData: Post[] = [];
+      for (let id in posts) {
+        postData.push({ ... posts[id], id});
+      }
+      return postData;
+    }))
   }
 
 }

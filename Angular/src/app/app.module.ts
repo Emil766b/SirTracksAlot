@@ -23,6 +23,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MapComponent } from './pages/map/map.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Singup2Component } from './pages/singup2/singup2.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     MapComponent,
     HistoryComponent,
+    Singup2Component,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSidenavModule,
     MatDividerModule,
     HttpClientModule,
+    MatTableModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

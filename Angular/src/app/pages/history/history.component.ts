@@ -3,6 +3,27 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service'
+import { Post } from 'src/app/Models/Post';
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+];
 
 @Component({
   selector: 'app-history',
@@ -10,6 +31,13 @@ import { FirebaseService } from 'src/app/services/firebase.service'
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
+
+  displayedColumns: string[] = ['Longitude', 'Latitude', 'Altitude', 'Satellites', 'Speed'];
+  dataSource = ELEMENT_DATA;
+
+  PastData: any;
+
+  posts: Post[] = [];
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
@@ -19,7 +47,7 @@ export class HistoryComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe(() => {
-      this.router.navigate(['login']);
+      this.router.navigate(['']);
     });
   }
 
@@ -36,6 +64,10 @@ export class HistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.getPastData().subscribe(data => {
+      this.PastData=data;
+      console.log(this.PastData);
+    })
   }
 
 }

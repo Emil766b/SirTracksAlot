@@ -15,6 +15,7 @@ import { Database, child, set, ref, update, onValue, get } from '@angular/fire/d
 
 
 
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -22,6 +23,9 @@ import { Database, child, set, ref, update, onValue, get } from '@angular/fire/d
 })
 
 export class MapComponent implements OnInit {
+
+  LocationData : any;
+  PastData: any;
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
@@ -60,7 +64,8 @@ export class MapComponent implements OnInit {
     this.marker(10.1252442, 56.1135314);
 
     this.authService.getLocation().subscribe(data => {
-      console.log(data);
+      this.LocationData=data;
+      console.log(this.LocationData)
     })
   }
 

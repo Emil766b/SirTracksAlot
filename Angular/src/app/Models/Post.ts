@@ -6,7 +6,7 @@ export interface Post {
     CurrentSatellites: string;
     CurrentSpeed: string;
     PastData: string;
-    Id: string;
+    id: string;
     Altitude: string;
     Latitude: string;
     Longitude: string;
