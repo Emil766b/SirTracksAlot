@@ -53,19 +53,19 @@ void loop() {
     int   satellites = GPS.satellites();
 
     
-    if (Firebase.setFloat(firebaseData, path + "/CurrentLatitude/Latitude", latitude)) {
+    if (Firebase.setFloat(firebaseData, path + "/Latitude", latitude)) {
       Serial.println(firebaseData.dataPath() + " = " + latitude);
     }
-    if (Firebase.setFloat(firebaseData, path + "/CurrentLongitude/Longitude", longitude)) {
+    if (Firebase.setFloat(firebaseData, path + "/Longitude", longitude)) {
       Serial.println(firebaseData.dataPath() + " = " + longitude);
     }
-    if (Firebase.setFloat(firebaseData, path + "/CurrentAltitude/Altitude", altitude)) {
+    if (Firebase.setFloat(firebaseData, path + "/Altitude", altitude)) {
       Serial.println(firebaseData.dataPath() + " = " + altitude);
     }
-    if (Firebase.setFloat(firebaseData, path + "/CurrentSpeed/Speed", speed)) {
+    if (Firebase.setFloat(firebaseData, path + "/Speed", speed)) {
       Serial.println(firebaseData.dataPath() + " = " + speed);
     }
-    if (Firebase.setFloat(firebaseData, path + "/CurrentSatellites/Satellites", satellites)) {
+    if (Firebase.setFloat(firebaseData, path + "/Satellites", satellites)) {
       Serial.println(firebaseData.dataPath() + " = " + satellites);
     }
     jsonStr = "{\"Latitude\":" + String(latitude, 7) + 
