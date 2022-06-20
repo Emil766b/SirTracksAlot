@@ -5,7 +5,6 @@ import { HistoryComponent } from './pages/history/history.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { MapComponent } from './pages/map/map.component';
 import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
-import { Singup2Component } from './pages/singup2/singup2.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['']);
 const redirectToMain = () => redirectLoggedInTo(['map'])
@@ -32,11 +31,6 @@ const routes: Routes = [
     path: 'signup',
     component: SignupComponent,
     ...canActivate(redirectToMain)
-  },
-  {
-    path: 'signup2',
-    component: Singup2Component,
-    ...canActivate(redirectToLogin)
   },
 ];
 

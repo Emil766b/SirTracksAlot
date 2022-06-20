@@ -7,9 +7,14 @@ mat-toolbar {
     
 }
 
+.table-container {
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+}
+
 table {
     width: 100%;
-    height: 100%;
   }
 
 
