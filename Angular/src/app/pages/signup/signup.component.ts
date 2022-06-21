@@ -59,13 +59,21 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
-    if (!this.signUpForm.valid) return;
+    if (!this.signUpForm.valid) {
+      return;
+    }
+  
     const { name, email, password } = this.signUpForm.value;
-    this.authService.signup(email, password).pipe(
-      switchMap(({ user: { uid } }) =>
-        this.userService.addUser({ uid, email, displayName: name }))
+    this.authService
+      .signup(email, password)
+      .pipe(
+        switchMap(({ user: { uid } }) =>
+          this.userService.addUser({ uid, email, displayName: name })
+        ),
       )
-    this.router.navigate(['/map']);
+      .subscribe(() => {
+        this.router.navigate(['/map']);
+      });
   }
 
 }

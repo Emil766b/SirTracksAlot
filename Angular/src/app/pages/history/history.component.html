@@ -15,8 +15,8 @@
     
         <img class="avatar mat-elevation-z8" src="../assets/default-avatar.jpg"/>
     
-      <h4 class="name">Mary Hoe</h4>
-      <p class="designation">Something</p>
+        <h4 class="name" *ngIf="user$ | async as user ">{{ user.displayName }}</h4>
+        <p class="designation" *ngIf="user$ | async as user"> {{ user.email }}</p>
     
       <mat-divider></mat-divider>
     
@@ -42,29 +42,29 @@
           <table mat-table [dataSource]="PastData" class="mat-elevation-z8">
             <!-- Position Column -->
             <ng-container matColumnDef="Longitude">
-              <th mat-header-cell *matHeaderCellDef>Longitude</th>
+              <th mat-header-cell *matHeaderCellDef>længdegrad</th>
               <td mat-cell *matCellDef="let element"> {{element.Longitude}} </td>
             </ng-container>
           
             <!-- Name Column -->
             <ng-container matColumnDef="Latitude">
-              <th mat-header-cell *matHeaderCellDef>Latitude</th>
+              <th mat-header-cell *matHeaderCellDef>Breddegrad</th>
               <td mat-cell *matCellDef="let element"> {{element.Latitude}} </td>
             </ng-container>
           
             <!-- Weight Column -->
             <ng-container matColumnDef="Altitude">
-              <th mat-header-cell *matHeaderCellDef>Altitude</th>
+              <th mat-header-cell *matHeaderCellDef>Højde (m)</th>
               <td mat-cell *matCellDef="let element"> {{element.Altitude}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Satellites">
-              <th mat-header-cell *matHeaderCellDef>Satellites</th>
+              <th mat-header-cell *matHeaderCellDef>Satellitter</th>
               <td mat-cell *matCellDef="let element"> {{element.Satellites}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Speed">
-              <th mat-header-cell *matHeaderCellDef>Speed</th>
+              <th mat-header-cell *matHeaderCellDef>Fart (km/h)</th>
               <td mat-cell *matCellDef="let element"> {{element.Speed}} </td>
             </ng-container>
           

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { from, map, Observable, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Post } from '../Models/Post';
+import { FirebaseI } from '../Models/Firebase';
 import { UsersService } from './users.service';
 
 @Injectable({
@@ -28,20 +28,20 @@ export class FirebaseService {
   }
 
   getLocation() {
-    return this.http.get<{[id: string]: Post}>(
+    return this.http.get<{[id: string]: FirebaseI}>(
       `https://gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app/LocationData.json`
     );
   }
 
   getPastData() {
-    return this.http.get<{[id: string]: Post}>(
+    return this.http.get<{[id: string]: FirebaseI}>(
       `https://gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app/LocationData/PastData.json`
-    ).pipe(map((posts) => {
-      let postData: Post[] = [];
-      for (let id in posts) {
-        postData.push({ ... posts[id], id});
+    ).pipe(map((fbData) => {
+      let firebaseData: FirebaseI[] = [];
+      for (let id in fbData) {
+        firebaseData.push({ ... fbData[id], id});
       }
-      return postData;
+      return firebaseData;
     }))
   }
 

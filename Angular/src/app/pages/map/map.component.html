@@ -15,8 +15,8 @@
   
       <img class="avatar mat-elevation-z8" src="../assets/default-avatar.jpg"/>
   
-    <h4 class="name">Mary Hoe</h4>
-    <p class="designation">Something</p>
+    <h4 class="name" *ngIf="user$ | async as user ">{{ user.displayName }}</h4>
+    <p class="designation" *ngIf="user$ | async as user"> {{ user.email }}</p>
   
     <mat-divider></mat-divider>
   
@@ -40,11 +40,11 @@
       <div class="sideContent mat-elevation-z4">
         <div class="info">
           <div ngFor="let Location of LocationData">
-            <p>Longitude: {{LocationData.Longitude}} </p>
-            <p>Latitude: {{LocationData.Latitude}} </p>
-            <p>Altitude: {{LocationData.Altitude}} </p>
-            <p>Satellites: {{LocationData.Satellites}} </p>
-            <p>Speed: {{LocationData.Speed}} </p>
+            <p>længdegrad: {{LocationData.Longitude}} </p>
+            <p>Breddegrad: {{LocationData.Latitude}} </p>
+            <p>Højde: {{LocationData.Altitude}} M </p>
+            <p>Satellitter: {{LocationData.Satellites}} </p>
+            <p>Fart: {{LocationData.Speed}} km/h </p>
           </div>
         </div>
         <div id="map-mapbox"></div>

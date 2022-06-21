@@ -1,19 +1,19 @@
 <div class="form-container mat-elevation-z5">
-    <h1>Sign Up a New User!</h1>
+    <h1>Opret ny bruger</h1>
     <form [formGroup]="signUpForm" (ngSubmit)="submit()">
       <mat-form-field>
-        <input matInput placeholder="Name" formControlName="name" />
+        <input matInput placeholder="Navn" formControlName="name" />
         <mat-error *ngIf="name?.errors?.['required']">
-          Name is required
+          Navn er krævet
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Email address" formControlName="email" />
+        <input matInput placeholder="Email" formControlName="email" />
         <mat-error *ngIf="email?.errors?.['required']">
-          Email address is required
+          Email er krævet
         </mat-error>
         <mat-error *ngIf="email?.errors?.['email']">
-          Please enter a valid email address
+          Indtast en korekt email
         </mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -24,25 +24,25 @@
           formControlName="password"
         />
         <mat-error *ngIf="password?.errors?.['required']">
-          Password is required
+          Password er krævet
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input
           matInput
           type="password"
-          placeholder="Confirm Password"
+          placeholder="Bekræft Password"
           formControlName="confirmPassword"
         />
         <mat-error *ngIf="confirmPassword?.errors?.['required']">
-          Confirm Password is required
+          Bekræft password er krævet
         </mat-error>
       </mat-form-field>
       <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">
-          Passwords should match
+          Passwords matcher ikkes
       </mat-error>
       <div class="center margin-top">
-        <button type="submit" mat-raised-button color="primary">Sign Up!</button>
+        <button type="submit" mat-raised-button color="primary">Opret</button>
       </div>
     </form>
   </div>

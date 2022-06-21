@@ -1,4 +1,4 @@
-export interface Post {
+export interface FirebaseI {
     LocationData: string;
     CurrentAltitude: string;
     CurrentLatitude: string;

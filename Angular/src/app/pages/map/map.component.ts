@@ -12,6 +12,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from
 import { HttpClient} from '@angular/common/http';
 
 import { Database, child, set, ref, update, onValue, get } from '@angular/fire/database';
+import { UsersService } from 'src/app/services/users.service';
 
 
 
@@ -29,7 +30,9 @@ export class MapComponent implements OnInit {
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver, public authService: FirebaseService, private router: Router, private httpClinet: HttpClient, public database: Database) {
+  user$ = this.userService.currentUserProfile$;
+
+  constructor(private observer: BreakpointObserver, public authService: FirebaseService, private router: Router, private httpClinet: HttpClient, public userService: UsersService) {
   }
 
   logout() {
