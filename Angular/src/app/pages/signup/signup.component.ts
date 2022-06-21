@@ -5,16 +5,19 @@ import { switchMap } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service'
 import { UsersService } from 'src/app/services/users.service';
 
+// Password match validator
 export function passwordsMatchValidator(): ValidatorFn {
+  // return errors if any or null
   return (control: AbstractControl): ValidationErrors | null => {
+    // get password and confirmpassword value from formControl
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-
+    // Check if both fields have value and if both don't match
     if (password && confirmPassword && password !== confirmPassword) {
+      // if both don't match return true else return null
       return { passwordsDontMatch: true };
-    } else {
-      return null;
     }
+    return null;
   };
 }
 
@@ -25,53 +28,68 @@ export function passwordsMatchValidator(): ValidatorFn {
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
-  signUpForm = new FormGroup(
+  // SignupForm
+  signupForm = new FormGroup(
     {
+      // Validate name
       name: new FormControl('', Validators.required),
+      // Vanidate email
       email: new FormControl('', [Validators.required, Validators.email]),
+      // validate password
       password: new FormControl('', Validators.required),
+      // validate confirmpassword
       confirmPassword: new FormControl('', Validators.required),
     },
+    // validate password and comfirmpassword match
     { validators: passwordsMatchValidator() }
   );
 
 
-  constructor(private authService: FirebaseService, private  router: Router, public userService: UsersService) { }
+  constructor(private firebaseService: FirebaseService, private router: Router, public userService: UsersService) { }
 
   ngOnInit(): void {
   }
 
-  get email() {
-    return this.signUpForm.get('email');
-  }
-
-  get password() {
-    return this.signUpForm.get('password');
-  }
-
-  get confirmPassword() {
-    return this.signUpForm.get('confirmPassword');
-  }
-
+  // Get name
   get name() {
-    return this.signUpForm.get('name');
+    // Access name to check errors in SigupForm
+    return this.signupForm.get('name');
   }
 
+  // Get email
+  get email() {
+    // Access email to check errors in SigupForm
+    return this.signupForm.get('email');
+  }
+
+  // get password
+  get password() {
+    // Access password to check errors in SigupForm
+    return this.signupForm.get('password');
+  }
+
+  // Get confirmPassword
+  get confirmPassword() {
+    // Access confirmPassword to check errors in SigupForm
+    return this.signupForm.get('confirmPassword');
+  }
+
+  // Submit
   submit() {
-    if (!this.signUpForm.valid) {
+    // Check if signupForm is valid
+    if (!this.signupForm.valid) {
       return;
     }
-  
-    const { name, email, password } = this.signUpForm.value;
-    this.authService
-      .signup(email, password)
-      .pipe(
+    // Get name, email and password from signupForm
+    const { name, email, password } = this.signupForm.value;
+    // signup user in firebaseService
+    this.firebaseService.signup(email, password).pipe(
+      // Signup user in userService
         switchMap(({ user: { uid } }) =>
           this.userService.addUser({ uid, email, displayName: name })
         ),
-      )
-      .subscribe(() => {
+        // On subscribe navigate user to map
+      ).subscribe(() => {
         this.router.navigate(['/map']);
       });
   }

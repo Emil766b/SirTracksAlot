@@ -4,41 +4,49 @@
       menu
     </mat-icon>
     <mat-icon *ngIf="sidenav.opened">
-      Close
+
+        shower
     </mat-icon>
   </button>
   <p>Sir Tracks Alot</p>
 </mat-toolbar>
-
+<!-- Side Navigation-->
 <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav">
-  
+      
       <img class="avatar mat-elevation-z8" src="../assets/default-avatar.jpg"/>
-  
+      
+    <!-- Show displayName of current user -->
     <h4 class="name" *ngIf="user$ | async as user ">{{ user.displayName }}</h4>
+    <!-- Show email og current user -->
     <p class="designation" *ngIf="user$ | async as user"> {{ user.email }}</p>
   
     <mat-divider></mat-divider>
-  
+      <!-- Map button -->
       <button mat-button class="menu-button" routerLink="/map">
         <mat-icon>map</mat-icon>
         <span>Kort</span>
       </button>
+      <!-- History button -->
       <button mat-button class="menu-button" routerLink="/history">
         <mat-icon>list</mat-icon>
         <span>Ruter</span>
       </button>
   
       <mat-divider></mat-divider>
-  
+      
+      <!-- logout button -->
       <button mat-button class="menu-button" (click)="logout()">
         <mat-icon>logout</mat-icon>
         <span>Log ud</span>
       </button>
     </mat-sidenav>
+
+    <!-- Content -->
     <mat-sidenav-content>
       <div class="sideContent mat-elevation-z4">
         <div class="info">
+          <!-- Realtime database info -->
           <div ngFor="let Location of LocationData">
             <p>længdegrad: {{LocationData.Longitude}} </p>
             <p>Breddegrad: {{LocationData.Latitude}} </p>
@@ -47,6 +55,7 @@
             <p>Fart: {{LocationData.Speed}} km/h </p>
           </div>
         </div>
+        <!-- Mapbox -->
         <div id="map-mapbox"></div>
       </div>
     </mat-sidenav-content>

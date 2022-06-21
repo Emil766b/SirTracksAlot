@@ -15,22 +15,24 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class HistoryComponent implements OnInit {
 
+  //displayed columns in table
   displayedColumns: string[] = ['Longitude', 'Latitude', 'Altitude', 'Satellites', 'Speed'];
 
   PastData: any;
 
-  fbData: FirebaseI[] = [];
-
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
+  // Current user observable
   user$ = this.userService.currentUserProfile$;
 
-  constructor(private observer: BreakpointObserver, public authService: FirebaseService, private router: Router, public userService: UsersService) {
+  constructor(private observer: BreakpointObserver, public firebaseService: FirebaseService, private router: Router, public userService: UsersService) {
 
   }
 
+  // Logout
   logout() {
-    this.authService.logout().subscribe(() => {
+    // Call logout an navigate to login on subscribe
+    this.firebaseService.logout().subscribe(() => {
       this.router.navigate(['']);
     });
   }
@@ -48,9 +50,9 @@ export class HistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getPastData().subscribe(data => {
+    // Subsribe to getPastdata
+    this.firebaseService.getPastData().subscribe(data => {
       this.PastData=data;
-      console.log(this.PastData);
     })
   }
 

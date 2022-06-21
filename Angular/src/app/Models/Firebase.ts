@@ -1,10 +1,5 @@
 export interface FirebaseI {
-    LocationData: string;
-    CurrentAltitude: string;
-    CurrentLatitude: string;
-    CurrentLongitude: string;
-    CurrentSatellites: string;
-    CurrentSpeed: string;
+    LocationData: string;   
     PastData: string;
     id: string;
     Altitude: string;
