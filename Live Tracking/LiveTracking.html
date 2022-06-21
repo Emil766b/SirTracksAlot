@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Add live realtime data</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiYWxwaW5lcSIsImEiOiJjbDRkeHBocGIwY3RpM2pzNmt0bHdjeml2In0.aTaL5hQDzyWcdozhzH2HhA';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        zoom: 0
+    });
+
+    map.on('load', async () => {
+        // Get the initial location of the API
+        const geojson = await getLocation();
+        // Add the API location as a source.
+        map.addSource('LiveLocation', {
+            type: 'geojson',
+            data: geojson
+        });
+        // Add the rocket symbol layer to the map.
+        map.addLayer({
+            'id': 'LiveLocation',
+            'type': 'symbol',
+            'source': 'LiveLocation',
+            'layout': {
+                'icon-image': 'rocket-15'
+            }
+        });
+
+        // Update the source from the API every 2 seconds.
+        const updateSource = setInterval(async () => {
+            const geojson = await getLocation(updateSource);
+            map.getSource('LiveLocation').setData(geojson);
+        }, 2000);
+
+        async function getLocation(updateSource) {
+            // Make a GET request to the API and return the latitude, longitude.
+            try {
+                const response = await fetch(
+                    'https://gps-data-cc537-default-rtdb.europe-west1.firebasedatabase.app/LocationData.json',
+                    { method: 'GET' }
+                );
+                const { Latitude, Longitude } = await response.json();
+                // Fly the map to the location.
+                map.flyTo({
+                    center: [Longitude, Latitude],
+                    speed: 0.5
+                });
+                // Return the location of the API as GeoJSON.
+                return {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [Longitude, Latitude]
+                            }
+                        }
+                    ]
+                };
+            } catch (err) {
+                // If the updateSource interval is defined, clear the interval to stop updating the source.
+                if (updateSource) clearInterval(updateSource);
+                throw new Error(err);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
